@@ -43,6 +43,6 @@ variable "health_check_timeout" {
   type        = number
 }
 variable "target_type" {
-  type        = string
+  type = string
 }
 

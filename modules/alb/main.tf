@@ -18,11 +18,11 @@ resource "aws_lb_listener" "alb_listener" {
 }
 
 resource "aws_lb_target_group" "alb_target_group" {
-  name     = var.targetgroup_name
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
-  target_type = var.target_type 
+  name        = var.targetgroup_name
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = var.target_type
   health_check {
     enabled             = true
     healthy_threshold   = var.healthy_threshold
