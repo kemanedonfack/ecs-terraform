@@ -20,9 +20,6 @@ variable "ecs_subnets_ids" {
 variable "service_security_group_id" {
 
 }
-variable "alb_target_group_arn" {
-
-}
 
 variable "task_policy_arn" {
   

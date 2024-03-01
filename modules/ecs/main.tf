@@ -10,7 +10,7 @@ resource "aws_ecs_cluster" "ecs_cluster" {
   }
 }
 
-resource "aws_ecs_task_definition" "ecs_task_definition_1" {
+resource "aws_ecs_task_definition" "ecs_task_definition" {
   family                   = var.task_name
   container_definitions    = <<DEFINITION
   [
@@ -71,15 +71,9 @@ resource "aws_iam_role_policy_attachment" "ecsTaskRole_policy" {
 resource "aws_ecs_service" "ecs_service" {
   name            = var.service_name
   cluster         = aws_ecs_cluster.ecs_cluster.id
-  task_definition = aws_ecs_task_definition.ecs_task_definition_1.arn
+  task_definition = aws_ecs_task_definition.ecs_task_definition.arn
   desired_count   = var.desired_count
   launch_type     = "FARGATE"
-
-  load_balancer {
-    target_group_arn = var.alb_target_group_arn
-    container_name   = aws_ecs_task_definition.ecs_task_definition_1.family
-    container_port   = var.app_port
-  }
 
   network_configuration {
     subnets          = var.ecs_subnets_ids
