@@ -4,6 +4,19 @@
 mkdir -p /tmp/dcbs
 mkdir -p /tmp/dcbs/{transfer,home/dcbs_ridl,archive,home/dcbs_ridl/history,logs,shell}
 
+# Récupérer les informations de connexion à la base de données
+DB_CONN_STRING=$(aws secretsmanager get-secret-value --secret-id "$SECRET_NAME" --query SecretString --output text)
+
+# Exporter les variables d'environnement pour votre application
+export DB_HOST=$(echo $DB_CONN_STRING | jq -r '.host')
+export DB_PORT=$(echo $DB_CONN_STRING | jq -r '.port')
+export DB_USER=$(echo $DB_CONN_STRING | jq -r '.username')
+export DB_PASSWORD=$(echo $DB_CONN_STRING | jq -r '.password')
+
+echo $DB_USER;
+echo $DB_PASSWORD;
+echo $DB_HOST;
+
 # Simulating exporting environment variables
 export DCBS=/tmp/dcbs
 export DCBS_XFER=$DCBS/transfer
